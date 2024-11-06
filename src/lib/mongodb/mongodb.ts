@@ -1,10 +1,12 @@
 // lib/mongodb.js
 import { MongoClient } from 'mongodb';
 
-let client;
+let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
 const uri = process.env.MONGODB_URI;
+console.log("uri: ", uri);
+
 const options = {};
 
 if (!uri) {
