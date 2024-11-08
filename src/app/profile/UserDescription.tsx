@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Typography, Input, Box } from '@mui/material';
-
+import { Button, Typography, Input, Box, Stack, Divider } from '@mui/material';
+import DescriptionIcon from '@mui/icons-material/Description';
+import DownloadIcon from '@mui/icons-material/Download';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 interface Note {
     id: number;
     title: string;
@@ -36,7 +38,7 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
     const [editedMajor, setEditedMajor] = useState(user.major);
 
     const handleSave = () => {
-        // In a real application, you would send this data to the backend
+        // send this data to the backend
         setEditStatus(false);
     };
 
@@ -88,7 +90,9 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                                 marginBottom: '10px',
                             }}
                         >
-                            <Typography variant="h6">Notes Uploaded</Typography>
+                            <Typography variant="h6">
+                                Notes Uploaded <DescriptionIcon fontSize="small" />
+                                </Typography>
                             <Typography variant="body1">{user.notesUploaded}</Typography>
                         </Box>
                         <Box
@@ -99,7 +103,9 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                                 marginBottom: '10px',
                             }}
                         >
-                            <Typography variant="h6">Notes Downloaded</Typography>
+                            <Typography variant="h6">
+                                Notes Downloaded <DownloadIcon fontSize="small" />
+                                </Typography>
                             <Typography variant="body1">{user.notesDownloaded}</Typography>
                         </Box>
                         <Box
@@ -110,19 +116,23 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                                 marginBottom: '10px',
                             }}
                         >
-                            <Typography variant="h6">Notes Uploaded</Typography>
+                            <Typography variant="h6">
+                                Notes Uploaded <MenuBookIcon fontSize="small" />
+                                </Typography>
                             <Typography variant="body1">{user.coursesTaken.length}</Typography>
                         </Box>
                        
                     </Box>
-                    <div className="course-list">
-                        <h2>Courses Taken</h2>
-                        <ul>
+                    <Box className="course-list" mt={3} p={2} border={1} borderColor="grey.300" borderRadius={2} bgcolor="background.paper">
+                        <Typography variant="h5" mb={2}>Courses Taken</Typography>
+                        <Stack divider={<Divider />} spacing={1}>
                             {user.coursesTaken.map((course, index) => (
-                                <li key={index}>{course}</li>
+                                <Typography key={index} variant="body1" sx={{ padding: '8px 0' }}>
+                                    {course}
+                                </Typography>
                             ))}
-                        </ul>
-                    </div>
+                        </Stack>
+                    </Box>
                 </div>
             )}
         </div>

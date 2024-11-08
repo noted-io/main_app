@@ -2,6 +2,7 @@
 import React from 'react';
 import UserDescription from './UserDescription';
 import HeaderCard from '@/app/components/headercard/HeaderCard';
+import NotesGallery from './NotesGallery'; 
 
 interface Note {
     id: number;
@@ -48,6 +49,10 @@ export default function Page(): React.JSX.Element {
         <>
             <HeaderCard />
             <UserDescription user={user} notes={notes} /> {/* Pass notes as a prop */}
+
         </>
     );
 }
+
+
+///            <NotesGallery notes={notes} />
