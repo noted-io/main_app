@@ -1,5 +1,7 @@
-
-import React, { useState } from 'react';
+"use client";
+import React from 'react';
+import UserDescription from './UserDescription';
+import HeaderCard from '@/app/components/headercard/HeaderCard';
 
 interface Note {
     id: number;
@@ -8,59 +10,44 @@ interface Note {
     downloads: number;
     thumbnail: string;
 }
-interface User {
-    name: string;
-    username: string;
-    avatar: string;
-    bio: string;
-    school: string;
-    year: string;
-    gradStatus: string;
-    major: string;
-    minor?: string;
-    gpa: string;
-    coursesTaken: string[];
-    joinDate: string;
-    notesUploaded: number;
-    notesDownloaded: number;
-}
 
-interface UserDescriptionProps {
-    user: User;
-    notes: Note;
-}
+const user = {
+    name: "Alex Johnson",
+    username: "alex_j",
+    avatar: "/placeholder.svg?height=100&width=100",
+    bio: "Computer Science enthusiast | Note-taking aficionado",
+    school: "Stanford University",
+    year: "Junior",
+    gradStatus: "Undergraduate",
+    major: "Computer Science",
+    minor: "Data Science",
+    gpa: "3.8",
+    coursesTaken: [
+      "CS101: Introduction to Computer Science",
+      "CS201: Data Structures and Algorithms",
+      "CS301: Database Systems",
+      "MATH101: Calculus I",
+      "MATH201: Linear Algebra",
+      "DS101: Introduction to Data Science",
+      "DS201: Machine Learning Fundamentals"
+    ],
+    joinDate: "September 2022",
+    notesUploaded: 12,
+    notesDownloaded: 87,
+  }
 
-export default function UserDescription({ user }: UserDescriptionProps): React.JSX.Element {
+const notes: Note[] = [
+    { id: 1, title: "CS101 Midterm Review", subject: "Computer Science", downloads: 230, thumbnail: "/placeholder.svg?height=200&width=300" },
+    { id: 2, title: "Data Structures Cheat Sheet", subject: "Computer Science", downloads: 189, thumbnail: "/placeholder.svg?height=200&width=300" },
+    { id: 3, title: "Calculus I Formula Sheet", subject: "Mathematics", downloads: 156, thumbnail: "/placeholder.svg?height=200&width=300" },
+    { id: 4, title: "Machine Learning Algorithms", subject: "Data Science", downloads: 201, thumbnail: "/placeholder.svg?height=200&width=300" },
+];
 
-    const[editStatus, setEditStatus] = useState(false)
-
+export default function Page(): React.JSX.Element {
     return (
-        <div className='profile-page'>
-            <h1>{user.name}</h1>\
-            <button onClick={() =>setEditStatus(!editStatus)}>Edit Profile</button>
-            <p>@{user.username}</p>
-            <p>Major: {user.major}</p>
-            {user.minor && <p>Minor: {user.minor}</p>}
-            <p>Joined {user.joinDate}</p>
-            <div className='description-notes'>
-                <ul>
-                    <li>Notes Uploaded {user.notesUploaded}</li>
-                    <li>Notes Downlaoded {user.notesDownloaded}</li>
-                    <li>Courses Taken {user.coursesTaken.length}</li>
-                </ul>
-            </div>
-            <div className="course-list">
-                <h2>Courses Taken</h2>
-                <ul>
-                    {user.coursesTaken.map((course, index) => (
-                        <li key={index}>{course}</li>
-                    ))}
-                </ul>
-            </div>
-            <div className="notes-gallery">
-                <h2>Updated Notes Gallery</h2>
-                
-            </div>
-        </div>
+        <>
+            <HeaderCard />
+            <UserDescription user={user} notes={notes} /> {/* Pass notes as a prop */}
+        </>
     );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button, Typography, Input, Box } from '@mui/material';
 
 interface Note {
     id: number;
@@ -41,16 +42,16 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
 
     return (
         <div className='profile-page'>
-            <button onClick={() => setEditStatus(!editStatus)}>
+            <Button onClick={() => setEditStatus(!editStatus)}>
                 {editStatus ? "Cancel" : "Edit Profile"}
-            </button>
+            </Button>
 
             {editStatus ? (
                 <div>
                     <h2>Edit Profile</h2>
                     <label>
                         Name:
-                        <input 
+                        <Input 
                             type="text" 
                             value={editedName} 
                             onChange={(e) => setEditedName(e.target.value)} 
@@ -58,30 +59,62 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                     </label>
                     <label>
                         Major:
-                        <input 
+                        <Input 
                             type="text" 
                             value={editedMajor} 
                             onChange={(e) => setEditedMajor(e.target.value)} 
                         />
                     </label>
-                    <button onClick={handleSave}>Save</button>
+                    <Button onClick={handleSave}>Save</Button>
                 </div>
             ) : (
                 <div>
-                    <h1>{editedName}</h1>
-                    <p>@{user.username}</p>
-                    <p>Major: {editedMajor}</p>
-                    {user.minor && <p>Minor: {user.minor}</p>}
-                    <p>Joined {user.joinDate}</p>
 
-                    <div className='description-notes'>
-                        <ul>
-                            <li>Notes Uploaded: {user.notesUploaded}</li>
-                            <li>Notes Downloaded: {user.notesDownloaded}</li>
-                            <li>Courses Taken: {user.coursesTaken.length}</li>
-                        </ul>
-                    </div>
-                    
+
+// This is non editing GUI. Displaying profile 
+                    <Typography variant="h1">{editedName}</Typography>
+                    <Typography variant="subtitle2">
+                        @{user.username} <br />
+                        Major: {editedMajor} <br />
+                        {user.minor && `Minor: ${user.minor}`} <br />
+                        Joined {user.joinDate}
+                    </Typography>
+                    <Box display="flex" justifyContent="space-around" mt={3} mb={3} p={2} bgcolor="background.paper" borderRadius={1}>
+                        <Box
+                            sx={{
+                                border: '1px solid #ccc',
+                                padding: '20px',
+                                borderRadius: '5px',
+                                marginBottom: '10px',
+                            }}
+                        >
+                            <Typography variant="h6">Notes Uploaded</Typography>
+                            <Typography variant="body1">{user.notesUploaded}</Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                border: '1px solid #ccc',
+                                padding: '20px',
+                                borderRadius: '5px',
+                                marginBottom: '10px',
+                            }}
+                        >
+                            <Typography variant="h6">Notes Downloaded</Typography>
+                            <Typography variant="body1">{user.notesDownloaded}</Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                border: '1px solid #ccc',
+                                padding: '20px',
+                                borderRadius: '5px',
+                                marginBottom: '10px',
+                            }}
+                        >
+                            <Typography variant="h6">Notes Uploaded</Typography>
+                            <Typography variant="body1">{user.coursesTaken.length}</Typography>
+                        </Box>
+                       
+                    </Box>
                     <div className="course-list">
                         <h2>Courses Taken</h2>
                         <ul>
