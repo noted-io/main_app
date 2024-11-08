@@ -49,10 +49,8 @@ export default function Page(): React.JSX.Element {
         <>
             <HeaderCard />
             <UserDescription user={user} notes={notes} /> {/* Pass notes as a prop */}
-
+            <NotesGallery notes={notes} />
         </>
     );
 }
 
-
-///            <NotesGallery notes={notes} />
