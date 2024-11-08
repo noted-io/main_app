@@ -1,212 +1,401 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-
-const TypingEffect = ({ words }) => {
-  const [currentWord, setCurrentWord] = useState(0)
-  const [currentText, setCurrentText] = useState('')
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [showCursor, setShowCursor] = useState(true)
-
-  useEffect(() => {
-    const typeEffect = () => {
-      const current = words[currentWord]
-      const shouldDelete = isDeleting ? 1 : -1
-      setCurrentText(current.substring(0, currentText.length - shouldDelete))
-
-      if (!isDeleting && currentText === current) {
-        setTimeout(() => setIsDeleting(true), 2000)
-      } else if (isDeleting && currentText === '') {
-        setIsDeleting(false)
-        setCurrentWord((prev) => (prev + 1) % words.length)
-      }
-
-      const speedUp = isDeleting ? 100 : 200
-      setTimeout(typeEffect, speedUp)
-    }
-
-    typeEffect()
-
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev)
-    }, 530)
-
-    return () => clearInterval(cursorInterval)
-  }, [currentWord, currentText, isDeleting, words])
-
-  return (
-    <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
-      {currentText}
-      <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>|</span>
-    </span>
-  )
-}
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  InputBase,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Container,
+  Grid,
+} from '@mui/material';
+import {
+  Search as SearchIcon,
+  Upload as UploadIcon,
+  Star as StarIcon,
+  Book as BookIcon,
+  People as PeopleIcon,
+  AttachMoney as AttachMoneyIcon,
+  Bookmark as BookmarkIcon,
+} from '@mui/icons-material';
 
 const MovingConveyor = ({ items }) => {
   return (
-    <div className="overflow-hidden whitespace-nowrap">
-      <div className="inline-block animate-marquee">
+    <Box overflow="hidden" whiteSpace="nowrap">
+      <Box display="inline-block" className="animate-marquee">
         {items.map((item, index) => (
-          <button key={index} className="mx-2 my-1">
+          <Button key={index} variant="outlined" sx={{ mx: 1, my: 0.5 }}>
             {item}
-          </button>
+          </Button>
         ))}
-      </div>
-      <div className="inline-block animate-marquee">
+      </Box>
+      <Box display="inline-block" className="animate-marquee">
         {items.map((item, index) => (
-          <button key={index} className="mx-2 my-1">
+          <Button key={index} variant="outlined" sx={{ mx: 1, my: 0.5 }}>
             {item}
-          </button>
+          </Button>
         ))}
-      </div>
-    </div>
-  )
-}
+      </Box>
+    </Box>
+  );
+};
 
 export default function Component() {
   const universities = [
-    "Harvard", "MIT", "Stanford", "Yale", "Princeton", "Columbia", "Berkeley", "Oxford", "Cambridge", "ETH Zurich"
-  ]
+    'Harvard',
+    'MIT',
+    'Stanford',
+    'Yale',
+    'Princeton',
+    'Columbia',
+    'Berkeley',
+    'Oxford',
+    'Cambridge',
+    'ETH Zurich',
+  ];
   const apClasses = [
-    "AP Biology", "AP Calculus", "AP Chemistry", "AP Physics", "AP Literature", "AP History", "AP Economics", "AP Computer Science"
-  ]
+    'AP Biology',
+    'AP Calculus',
+    'AP Chemistry',
+    'AP Physics',
+    'AP Literature',
+    'AP History',
+    'AP Economics',
+    'AP Computer Science',
+  ];
   const ibClasses = [
-    "IB Biology", "IB Mathematics", "IB Chemistry", "IB Physics", "IB Literature", "IB History", "IB Economics", "IB Computer Science"
-  ]
+    'IB Biology',
+    'IB Mathematics',
+    'IB Chemistry',
+    'IB Physics',
+    'IB Literature',
+    'IB History',
+    'IB Economics',
+    'IB Computer Science',
+  ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      <header className="px-4 lg:px-6 h-14 flex items-center bg-white shadow-sm">
-        <a className="flex items-center justify-center" href="#">
-          <span className="ml-2 text-xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">NoteShare</span>
-        </a>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#">
-            Home
-          </a>
-          <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#">
-            Explore
-          </a>
-          <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#">
-            Contribute
-          </a>
-          <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#">
-            About
-          </a>
-          <a className="text-sm font-medium hover:text-blue-500 transition-colors" href="#">
-            Log In
-          </a>
-        </nav>
-      </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-white">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Making learning accessible and open
-                </h1>
-                <p className="text-2xl md:text-3xl lg:text-4xl font-semibold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
-                  Notes for students -- by students
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
-                  <input className="flex-1 bg-gray-100 text-gray-900" placeholder="Search by school, class, or semester" type="text" />
-                  <button type="submit" className="bg-blue-500 text-white hover:bg-blue-600">
-                    Search
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">
+    <Box display="flex" flexDirection="column" minHeight="100vh" bgcolor="grey.50">
+      {/* Header */}
+      <AppBar position="static" color="default" elevation={1}>
+        <Toolbar>
+          <Link href="#" passHref>
+            <IconButton edge="start" color="inherit" aria-label="menu">
+              <BookIcon color="primary" />
+            </IconButton>
+          </Link>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            NoteShare
+          </Typography>
+          <Box display="flex" gap={2}>
+            <Link href="#" passHref>
+              <Button color="inherit">Home</Button>
+            </Link>
+            <Link href="#" passHref>
+              <Button color="inherit">Explore</Button>
+            </Link>
+            <Link href="#" passHref>
+              <Button color="inherit">Contribute</Button>
+            </Link>
+            <Link href="#" passHref>
+              <Button color="inherit">About</Button>
+            </Link>
+            <Link href="#" passHref>
+              <Button color="inherit">Log In</Button>
+            </Link>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {/* Main Content */}
+      <Box component="main" flexGrow={1}>
+        {/* First Section */}
+        <Box py={{ xs: 12, md: 24 }} bgcolor="white">
+          <Container>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              textAlign="center"
+              gap={2}
+            >
+              <Typography variant="h3" component="h1" fontWeight="bold">
+                Making learning accessible and open
+              </Typography>
+              <Typography variant="h4" component="p" fontWeight="bold" color="primary">
+                Notes for students -- by students
+              </Typography>
+              <Box
+                component="form"
+                mt={4}
+                display="flex"
+                gap={1}
+                maxWidth={600}
+                width="100%"
+              >
+                <InputBase
+                  sx={{ flex: 1, bgcolor: 'grey.100', px: 2, py: 1, borderRadius: 1 }}
+                  placeholder="Search by school, class, or semester"
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<SearchIcon />}
+                >
+                  Search
+                </Button>
+              </Box>
+            </Box>
+          </Container>
+        </Box>
+        {/* Second Section */}
+        <Box py={{ xs: 12, md: 24 }} bgcolor="grey.100">
+          <Container>
+            <Typography
+              variant="h4"
+              component="h2"
+              fontWeight="bold"
+              textAlign="center"
+              color="secondary"
+              mb={8}
+            >
               Benefits and Positive Impact
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white shadow-lg">
-                <div className="flex flex-col items-center p-6">
-                  <h3 className="text-xl font-bold mb-2">Community-Driven</h3>
-                  <p className="text-center text-gray-600">Collaborate with peers and share knowledge across a global student network.</p>
-                </div>
-              </div>
-              <div className="bg-white shadow-lg">
-                <div className="flex flex-col items-center p-6">
-                  <h3 className="text-xl font-bold mb-2">No More Paywalls</h3>
-                  <p className="text-center text-gray-600">Access quality educational resources without financial barriers.</p>
-                </div>
-              </div>
-              <div className="bg-white shadow-lg">
-                <div className="flex flex-col items-center p-6">
-                  <h3 className="text-xl font-bold mb-2">Specialized Notes</h3>
-                  <p className="text-center text-gray-600">Find tailored notes for your specific courses and learning needs.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-white overflow-hidden">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-500">
+            </Typography>
+            <Grid container spacing={4}>
+              <Grid item xs={12} md={4}>
+                <Card>
+                  <CardContent>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      textAlign="center"
+                      gap={2}
+                    >
+                      <PeopleIcon fontSize="large" color="primary" />
+                      <Typography variant="h5" component="h3" fontWeight="bold">
+                        Community-Driven
+                      </Typography>
+                      <Typography color="textSecondary">
+                        Collaborate with peers and share knowledge across a global student
+                        network.
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Card>
+                  <CardContent>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      textAlign="center"
+                      gap={2}
+                    >
+                      <AttachMoneyIcon fontSize="large" color="success" />
+                      <Typography variant="h5" component="h3" fontWeight="bold">
+                        No More Paywalls
+                      </Typography>
+                      <Typography color="textSecondary">
+                        Access quality educational resources without financial barriers.
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Card>
+                  <CardContent>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      textAlign="center"
+                      gap={2}
+                    >
+                      <BookmarkIcon fontSize="large" color="secondary" />
+                      <Typography variant="h5" component="h3" fontWeight="bold">
+                        Specialized Notes
+                      </Typography>
+                      <Typography color="textSecondary">
+                        Find tailored notes for your specific courses and learning needs.
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+        {/* Third Section */}
+        <Box py={{ xs: 12, md: 24 }} bgcolor="white">
+          <Container>
+            <Typography
+              variant="h4"
+              component="h2"
+              fontWeight="bold"
+              textAlign="center"
+              color="primary"
+              mb={8}
+            >
               Explore by Institution and Course
-            </h2>
-            <div className="space-y-8">
+            </Typography>
+            <Box mb={8}>
               <MovingConveyor items={universities} />
+            </Box>
+            <Box mb={8}>
               <MovingConveyor items={apClasses} />
+            </Box>
+            <Box>
               <MovingConveyor items={ibClasses} />
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-500">How It Works</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center text-center">
-                <h3 className="text-xl font-bold mb-2 text-blue-500">Upload</h3>
-                <p className="text-gray-600">Share your notes and help fellow students.</p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <h3 className="text-xl font-bold mb-2 text-purple-500">Search</h3>
-                <p className="text-gray-600">Find the notes you need for your classes.</p>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <h3 className="text-xl font-bold mb-2 text-pink-500">Rate</h3>
-                <p className="text-gray-600">Help others by rating and reviewing notes.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gradient bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-500">Join Our Community</h2>
-                <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Start sharing and accessing quality notes today. Join thousands of students helping each other succeed.
-                </p>
-              </div>
-              <div className="space-x-4">
-                <button className="bg-blue-500 text-white hover:bg-blue-600">Sign Up</button>
-                <button className="text-blue-500 border-blue-500 hover:bg-blue-50">Explore Notes</button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-white">
-        <p className="text-xs text-gray-500">© 2024 NoteShare. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <a className="text-xs hover:underline underline-offset-4 text-gray-500 hover:text-gray-700" href="#">
-            Terms of Service
-          </a>
-          <a className="text-xs hover:underline underline-offset-4 text-gray-500 hover:text-gray-700" href="#">
-            Privacy
-          </a>
-        </nav>
-      </footer>
-    </div>
-  )
+            </Box>
+          </Container>
+        </Box>
+        {/* Fourth Section */}
+        <Box py={{ xs: 12, md: 24 }} bgcolor="grey.100">
+          <Container>
+            <Typography
+              variant="h4"
+              component="h2"
+              fontWeight="bold"
+              textAlign="center"
+              color="primary"
+              mb={8}
+            >
+              How It Works
+            </Typography>
+            <Grid container spacing={4}>
+              <Grid item xs={12} md={4}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  textAlign="center"
+                  gap={2}
+                >
+                  <UploadIcon fontSize="large" color="primary" />
+                  <Typography variant="h5" component="h3" fontWeight="bold" color="primary">
+                    Upload
+                  </Typography>
+                  <Typography color="textSecondary">
+                    Share your notes and help fellow students.
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  textAlign="center"
+                  gap={2}
+                >
+                  <SearchIcon fontSize="large" color="secondary" />
+                  <Typography variant="h5" component="h3" fontWeight="bold" color="secondary">
+                    Search
+                  </Typography>
+                  <Typography color="textSecondary">
+                    Find the notes you need for your classes.
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  textAlign="center"
+                  gap={2}
+                >
+                  <StarIcon fontSize="large" sx={{ color: 'pink' }} />
+                  <Typography variant="h5" component="h3" fontWeight="bold" sx={{ color: 'pink' }}>
+                    Rate
+                  </Typography>
+                  <Typography color="textSecondary">
+                    Help others by rating and reviewing notes.
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+        {/* Fifth Section */}
+        <Box py={{ xs: 12, md: 24 }} bgcolor="white">
+          <Container>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              textAlign="center"
+              gap={2}
+            >
+              <Typography variant="h4" component="h2" fontWeight="bold" color="secondary">
+                Join Our Community
+              </Typography>
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                maxWidth={700}
+                sx={{ mx: 'auto' }}
+              >
+                Start sharing and accessing quality notes today. Join thousands of students
+                helping each other succeed.
+              </Typography>
+              <Box mt={4} display="flex" gap={2}>
+                <Button variant="contained" color="primary">
+                  Sign Up
+                </Button>
+                <Button variant="outlined" color="primary">
+                  Explore Notes
+                </Button>
+              </Box>
+            </Box>
+          </Container>
+        </Box>
+      </Box>
+      {/* Footer */}
+      <Box
+        component="footer"
+        py={6}
+        bgcolor="white"
+        borderTop={1}
+        borderColor="grey.300"
+      >
+        <Container>
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', sm: 'row' }}
+            alignItems="center"
+            justifyContent="space-between"
+            gap={2}
+          >
+            <Typography variant="caption" color="textSecondary">
+              © 2024 NoteShare. All rights reserved.
+            </Typography>
+            <Box display="flex" gap={2}>
+              <Link href="#" passHref>
+                <Button color="inherit" size="small">
+                  Terms of Service
+                </Button>
+              </Link>
+              <Link href="#" passHref>
+                <Button color="inherit" size="small">
+                  Privacy
+                </Button>
+              </Link>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+    </Box>
+  );
 }
