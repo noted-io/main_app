@@ -1,6 +1,13 @@
-import React from 'react';
 
+import React, { useState } from 'react';
 
+interface Note {
+    id: number;
+    title: string;
+    subject: string;
+    downloads: number;
+    thumbnail: string;
+}
 interface User {
     name: string;
     username: string;
@@ -20,12 +27,17 @@ interface User {
 
 interface UserDescriptionProps {
     user: User;
+    notes: Note;
 }
 
 export default function UserDescription({ user }: UserDescriptionProps): React.JSX.Element {
+
+    const[editStatus, setEditStatus] = useState(false)
+
     return (
         <div className='profile-page'>
-            <h1>{user.name}</h1>
+            <h1>{user.name}</h1>\
+            <button onClick={() =>setEditStatus(!editStatus)}>Edit Profile</button>
             <p>@{user.username}</p>
             <p>Major: {user.major}</p>
             {user.minor && <p>Minor: {user.minor}</p>}
@@ -46,6 +58,7 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                 </ul>
             </div>
             <div className="notes-gallery">
+                <h2>Updated Notes Gallery</h2>
                 
             </div>
         </div>
