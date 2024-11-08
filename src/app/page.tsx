@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
@@ -9,9 +8,6 @@ import {
   CardContent,
   Typography,
   InputBase,
-  AppBar,
-  Toolbar,
-  IconButton,
   Container,
   Grid,
 } from '@mui/material';
@@ -19,12 +15,11 @@ import {
   Search as SearchIcon,
   Upload as UploadIcon,
   Star as StarIcon,
-  Book as BookIcon,
   People as PeopleIcon,
   AttachMoney as AttachMoneyIcon,
   Bookmark as BookmarkIcon,
 } from '@mui/icons-material';
-
+import HeaderCard from './components/headercard/HeaderCard';
 const MovingConveyor = ({ items }) => {
   return (
     <Box overflow="hidden" whiteSpace="nowrap">
@@ -82,37 +77,7 @@ export default function Component() {
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh" bgcolor="grey.50">
-      {/* Header */}
-      <AppBar position="static" color="default" elevation={1}>
-        <Toolbar>
-          <Link href="#" passHref>
-            <IconButton edge="start" color="inherit" aria-label="menu">
-              <BookIcon color="primary" />
-            </IconButton>
-          </Link>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            NoteShare
-          </Typography>
-          <Box display="flex" gap={2}>
-            <Link href="#" passHref>
-              <Button color="inherit">Home</Button>
-            </Link>
-            <Link href="#" passHref>
-              <Button color="inherit">Explore</Button>
-            </Link>
-            <Link href="#" passHref>
-              <Button color="inherit">Contribute</Button>
-            </Link>
-            <Link href="#" passHref>
-              <Button color="inherit">About</Button>
-            </Link>
-            <Link href="#" passHref>
-              <Button color="inherit">Log In</Button>
-            </Link>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {/* Main Content */}
+    <HeaderCard/>
       <Box component="main" flexGrow={1}>
         {/* First Section */}
         <Box py={{ xs: 12, md: 24 }} bgcolor="white">
