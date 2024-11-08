@@ -1,4 +1,4 @@
-import { getCollection } from "@/lib/mongodb/datadb";
+import { getCollection } from "../../lib/mongodb/datadb";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {

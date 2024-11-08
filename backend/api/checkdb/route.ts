@@ -1,4 +1,4 @@
-import clientPromise from "@/lib/mongodb/mongodb";
+import clientPromise from "../../lib/mongodb/mongodb";
 import { NextResponse } from "next/server";
 
 
