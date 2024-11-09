@@ -19,7 +19,7 @@ import {
   AttachMoney as AttachMoneyIcon,
   Bookmark as BookmarkIcon,
 } from '@mui/icons-material';
-import HeaderCard from './components/headercard/HeaderCard';
+import HeaderCard from '../components/headercard/HeaderCard';
 const MovingConveyor = ({ items }) => {
   return (
     <Box overflow="hidden" whiteSpace="nowrap">
@@ -77,6 +77,7 @@ export default function Component() {
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh" bgcolor="grey.50">
+    <HeaderCard/>
       <Box component="main" flexGrow={1}>
         {/* First Section */}
         <Box py={{ xs: 12, md: 24 }} bgcolor="white">
@@ -343,7 +344,7 @@ export default function Component() {
             gap={2}
           >
             <Typography variant="caption" color="textSecondary">
-              © 2024 Noted. All rights reserved.
+              © 2024 NoteShare. All rights reserved.
             </Typography>
             <Box display="flex" gap={2}>
               <Link href="#" passHref>
