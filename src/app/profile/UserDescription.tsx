@@ -4,7 +4,8 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import NotesGallery from './NotesGallery'; 
-import Pfp from './pfp';
+import { Avatar } from '@mui/material'
+import { ContactSupport } from '@mui/icons-material';
 
 
 interface Note {
@@ -59,7 +60,7 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
     };
 
     return (
-        <Container maxWidth="md" sx={{ textAlign: 'center', mt: 5 }}>
+        <Container>
             <Button onClick={() => setEditStatus(!editStatus)}>
                 {editStatus ? "Cancel" : "Edit Profile"}
             </Button>
@@ -113,15 +114,42 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                 <div>
 
 
-// This is non editing GUI. Displaying profile 
-                    <Typography variant="h1">{editedName}</Typography>
-                        <Pfp />
-                        <Typography variant="subtitle2">
-                            @{user.username} <br />
-                            Major: {editedMajor} <br />
-                            {user.minor && `Minor: ${user.minor}`} <br />
-                            Joined {user.joinDate}
-                        </Typography>
+
+//Construct
+
+                    <Container
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        alignItems: 'left'
+                    }}>
+                        <Container>
+                            <Avatar src={user.avatar} sx={{ width: 140, height: 140}}>
+
+                            </Avatar>
+                        </Container>
+                        <Container
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+
+                        }}>
+                            <Typography variant="h2">{editedName}</Typography>
+
+
+                            <Typography variant="subtitle2">
+                                @{user.username} <br />
+                                Major: {editedMajor} <br />
+                                {user.minor && `Minor: ${user.minor}`} <br />
+                                Joined {user.joinDate}
+                            </Typography>
+
+                        </Container>
+                    </Container>
+
+//Construct
+
 
                     <Box display="flex" justifyContent="space-around" mt={3} mb={3} p={2} bgcolor="background.paper" borderRadius={1}>
                         <Box
@@ -133,7 +161,8 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                             }}
                         >
                             <Typography variant="h6">
-                                Notes Uploaded <DescriptionIcon fontSize="small" />
+                                Notes Uploaded 
+                                <DescriptionIcon fontSize="small" />
                                 </Typography>
                             <Typography variant="body1">{user.notesUploaded}</Typography>
                         </Box>
@@ -159,7 +188,7 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                             }}
                         >
                             <Typography variant="h6">
-                                Notes Uploaded <MenuBookIcon fontSize="small" />
+                                Courses Taken <MenuBookIcon fontSize="small" />
                                 </Typography>
                             <Typography variant="body1">{user.coursesTaken.length}</Typography>
                         </Box>
