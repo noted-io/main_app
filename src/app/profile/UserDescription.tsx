@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Typography, Input, Box, Stack, Divider } from '@mui/material';
+import { Button, Typography, Input, Box, Stack, Divider, Container } from '@mui/material';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DownloadIcon from '@mui/icons-material/Download';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import NotesGallery from './NotesGallery'; 
+import Pfp from './pfp';
+
+
 interface Note {
     id: number;
     title: string;
@@ -10,6 +14,15 @@ interface Note {
     downloads: number;
     thumbnail: string;
 }
+
+
+const notes: Note[] = [
+    { id: 1, title: "CS101 Midterm Review", subject: "Computer Science", downloads: 230, thumbnail: "/placeholder.svg?height=200&width=300" },
+    { id: 2, title: "Data Structures Cheat Sheet", subject: "Computer Science", downloads: 189, thumbnail: "/placeholder.svg?height=200&width=300" },
+    { id: 3, title: "Calculus I Formula Sheet", subject: "Mathematics", downloads: 156, thumbnail: "/placeholder.svg?height=200&width=300" },
+    { id: 4, title: "Machine Learning Algorithms", subject: "Data Science", downloads: 201, thumbnail: "/placeholder.svg?height=200&width=300" },
+];
+
 interface User {
     name: string;
     username: string;
@@ -36,6 +49,9 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
     const [editStatus, setEditStatus] = useState(false);
     const [editedName, setEditedName] = useState(user.name);
     const [editedMajor, setEditedMajor] = useState(user.major);
+    const [editedMinor, setEditedMinor] = useState(user.minor);
+    const [editedBio, setEditedBio] = useState(user.bio);
+    const [editedSchool, setEditedSchool] = useState(user.school)
 
     const handleSave = () => {
         // send this data to the backend
@@ -43,7 +59,7 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
     };
 
     return (
-        <div className='profile-page'>
+        <Container maxWidth="md" sx={{ textAlign: 'center', mt: 5 }}>
             <Button onClick={() => setEditStatus(!editStatus)}>
                 {editStatus ? "Cancel" : "Edit Profile"}
             </Button>
@@ -67,6 +83,30 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                             onChange={(e) => setEditedMajor(e.target.value)} 
                         />
                     </label>
+                    <label>
+                        Bio:
+                        <Input 
+                            type="text" 
+                            value={editedBio} 
+                            onChange={(e) => setEditedBio(e.target.value)} 
+                        />
+                    </label>
+                    <label>
+                        School:
+                        <Input 
+                            type="text" 
+                            value={editedSchool} 
+                            onChange={(e) => setEditedSchool(e.target.value)} 
+                        />
+                    </label>
+                    <label>
+                        Minor:
+                        <Input 
+                            type="text" 
+                            value={editedMinor} 
+                            onChange={(e) => setEditedMinor(e.target.value)} 
+                        />
+                    </label>
                     <Button onClick={handleSave}>Save</Button>
                 </div>
             ) : (
@@ -75,12 +115,14 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
 
 // This is non editing GUI. Displaying profile 
                     <Typography variant="h1">{editedName}</Typography>
-                    <Typography variant="subtitle2">
-                        @{user.username} <br />
-                        Major: {editedMajor} <br />
-                        {user.minor && `Minor: ${user.minor}`} <br />
-                        Joined {user.joinDate}
-                    </Typography>
+                        <Pfp />
+                        <Typography variant="subtitle2">
+                            @{user.username} <br />
+                            Major: {editedMajor} <br />
+                            {user.minor && `Minor: ${user.minor}`} <br />
+                            Joined {user.joinDate}
+                        </Typography>
+
                     <Box display="flex" justifyContent="space-around" mt={3} mb={3} p={2} bgcolor="background.paper" borderRadius={1}>
                         <Box
                             sx={{
@@ -133,8 +175,9 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                             ))}
                         </Stack>
                     </Box>
+                    <NotesGallery notes={notes} />
                 </div>
             )}
-        </div>
+        </Container>
     );
 }
