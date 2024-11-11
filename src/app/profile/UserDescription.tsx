@@ -7,6 +7,7 @@ import NotesGallery from './NotesGallery';
 import { Avatar } from '@mui/material'
 import SchoolIcon from '@mui/icons-material/School';
 import DomainIcon from '@mui/icons-material/Domain';
+import { Directions } from '@mui/icons-material';
 
 interface Note {
     id: number;
@@ -61,61 +62,10 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
 
     return (
         <Container>
-            <Button onClick={() => setEditStatus(!editStatus)}>
-                {editStatus ? "Cancel" : "Edit Profile"}
-            </Button>
-
-            {editStatus ? (
-                <div>
-                    <h2>Edit Profile</h2>
-                    <label>
-                        Name:
-                        <Input 
-                            type="text" 
-                            value={editedName} 
-                            onChange={(e) => setEditedName(e.target.value)} 
-                        />
-                    </label>
-                    <label>
-                        Major:
-                        <Input 
-                            type="text" 
-                            value={editedMajor} 
-                            onChange={(e) => setEditedMajor(e.target.value)} 
-                        />
-                    </label>
-                    <label>
-                        Bio:
-                        <Input 
-                            type="text" 
-                            value={editedBio} 
-                            onChange={(e) => setEditedBio(e.target.value)} 
-                        />
-                    </label>
-                    <label>
-                        School:
-                        <Input 
-                            type="text" 
-                            value={editedSchool} 
-                            onChange={(e) => setEditedSchool(e.target.value)} 
-                        />
-                    </label>
-                    <label>
-                        Minor:
-                        <Input 
-                            type="text" 
-                            value={editedMinor} 
-                            onChange={(e) => setEditedMinor(e.target.value)} 
-                        />
-                    </label>
-                    <Button onClick={handleSave}>Save</Button>
-                </div>
-            ) : (
-                <div>
 
 
 
-//Construct
+
 
                     <Container
                     sx={{
@@ -123,54 +73,118 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
                         alignItems: 'left',
-          
+                        
+                        
                     }}>
-                        <Container>
-                            <Avatar src={user.avatar} sx={{ width: 140, height: 140}}>
-                            </Avatar>
-                        </Container>
-                        <Container
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
 
-                        }}>
+            
+                        <div>
+                            <Avatar src={user.avatar} sx={{ 
+                                width: 140, 
+                                height: 140,
+                            }}>
+                            </Avatar>
+                        </div>
+
+                        <Container
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+
+                            }}>
                             <Typography variant="h2">{editedName}</Typography>
                             
 
-                            <Typography variant="subtitle2">
-                                @{user.username} <br />
-                                <Typography variant='h6'>{user.bio}</Typography>
-                                <Box display='flex' justifyContent='flex-start' gap='5px'>
-                                    <Box
-                                        sx={{
-                                            border: '1px',
-                                            padding: '5px',
-                                            borderRadius: '20px',
-                                            backgroundColor: '#D3D3D3'
-                                        }}>
-                                        <DomainIcon />{user.school}
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            border: '1px',
-                                            padding: '5px',
-                                            borderRadius: '20px',
-                                            backgroundColor: '#D3D3D3'
-                                        }}>
-                                        <SchoolIcon />{user.year} - {user.gradStatus}
-                                    </Box>
-                                </Box>
-                                Major: {editedMajor} <br />
-                                {user.minor && `Minor: ${user.minor}`} <br />
-                                GPA; {user.gpa} <br />
-                                Joined {user.joinDate}
-                            </Typography>
 
+                            <Typography variant="subtitle2">@{user.username} <br /></Typography>
+                            {editStatus ? (
+                            <Container
+                            sx= {{
+                                display:'flex',
+                                flexDirection: 'column'
+                            }}>
+                                <h2>Edit Profile</h2>
+                                <label>
+                                    Name:
+                                    <Input 
+                                        type="text" 
+                                        value={editedName} 
+                                        onChange={(e) => setEditedName(e.target.value)} 
+                                    />
+                                </label>
+                                <label>
+                                    Major:
+                                    <Input 
+                                        type="text" 
+                                        value={editedMajor} 
+                                        onChange={(e) => setEditedMajor(e.target.value)} 
+                                    />
+                                </label>
+                                <label>
+                                    Bio:
+                                    <Input 
+                                        type="text" 
+                                        value={editedBio} 
+                                        onChange={(e) => setEditedBio(e.target.value)} 
+                                    />
+                                </label>
+                                <label>
+                                    School:
+                                    <Input 
+                                        type="text" 
+                                        value={editedSchool} 
+                                        onChange={(e) => setEditedSchool(e.target.value)} 
+                                    />
+                                </label>
+                                <label>
+                                    Minor:
+                                    <Input 
+                                        type="text" 
+                                        value={editedMinor} 
+                                        onChange={(e) => setEditedMinor(e.target.value)} 
+                                    />
+                                </label>
+                                <Button onClick={handleSave}>Save</Button>
+                            </Container>
+                            ) : (
+                            <>
+                                <Typography variant='h6'>{user.bio}</Typography>
+                                <Typography variant="subtitle2">
+                                    <Box display='flex' justifyContent='flex-start' gap='5px'>
+                                        <Box
+                                            sx={{
+                                                border: '1px',
+                                                padding: '5px',
+                                                borderRadius: '20px',
+                                                backgroundColor: '#D3D3D3'
+                                            }}>
+                                            <DomainIcon />{user.school}
+                                        </Box>
+                                        <Box
+                                            sx={{
+                                                border: '1px',
+                                                padding: '5px',
+                                                borderRadius: '20px',
+                                                backgroundColor: '#D3D3D3'
+                                            }}>
+                                            <SchoolIcon />{user.year} - {user.gradStatus}
+                                        </Box>
+                                    </Box>
+                                    Major: {editedMajor} <br />
+                                    {user.minor && `Minor: ${user.minor}`} <br />
+                                    GPA; {user.gpa} <br />
+                                    Joined {user.joinDate}
+                                </Typography>
+                                </>
+                            )}
                         </Container>
+            
+                        <Button onClick={() => setEditStatus(!editStatus)}>
+                            {editStatus ? "Cancel" : "Edit Profile"}
+                        </Button>
                     </Container>
 
-//Construct
+
 
 
                     <Box display="flex" justifyContent="space-around" mt={3} mb={3} p={2} bgcolor="background.paper" borderRadius={1}>
@@ -227,8 +241,8 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                         </Stack>
                     </Box>
                     <NotesGallery notes={notes} />
-                </div>
-            )}
+                
+            
         </Container>
     );
 }
