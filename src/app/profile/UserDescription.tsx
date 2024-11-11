@@ -5,8 +5,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import NotesGallery from './NotesGallery'; 
 import { Avatar } from '@mui/material'
-import { ContactSupport } from '@mui/icons-material';
-
+import SchoolIcon from '@mui/icons-material/School';
+import DomainIcon from '@mui/icons-material/Domain';
 
 interface Note {
     id: number;
@@ -122,11 +122,11 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
-                        alignItems: 'left'
+                        alignItems: 'left',
+          
                     }}>
                         <Container>
                             <Avatar src={user.avatar} sx={{ width: 140, height: 140}}>
-
                             </Avatar>
                         </Container>
                         <Container
@@ -136,12 +136,34 @@ export default function UserDescription({ user }: UserDescriptionProps): React.J
 
                         }}>
                             <Typography variant="h2">{editedName}</Typography>
-
+                            
 
                             <Typography variant="subtitle2">
                                 @{user.username} <br />
+                                <Typography variant='h6'>{user.bio}</Typography>
+                                <Box display='flex' justifyContent='flex-start' gap='5px'>
+                                    <Box
+                                        sx={{
+                                            border: '1px',
+                                            padding: '5px',
+                                            borderRadius: '20px',
+                                            backgroundColor: '#D3D3D3'
+                                        }}>
+                                        <DomainIcon />{user.school}
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            border: '1px',
+                                            padding: '5px',
+                                            borderRadius: '20px',
+                                            backgroundColor: '#D3D3D3'
+                                        }}>
+                                        <SchoolIcon />{user.year} - {user.gradStatus}
+                                    </Box>
+                                </Box>
                                 Major: {editedMajor} <br />
                                 {user.minor && `Minor: ${user.minor}`} <br />
+                                GPA; {user.gpa} <br />
                                 Joined {user.joinDate}
                             </Typography>
 
