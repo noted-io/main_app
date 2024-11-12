@@ -8,6 +8,7 @@ import { Avatar } from '@mui/material'
 import SchoolIcon from '@mui/icons-material/School';
 import DomainIcon from '@mui/icons-material/Domain';
 import { Directions } from '@mui/icons-material';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 interface Note {
     id: number;
@@ -48,201 +49,238 @@ interface UserDescriptionProps {
 }
 
 export default function UserDescription({ user }: UserDescriptionProps): React.JSX.Element {
-    const [editStatus, setEditStatus] = useState(false);
-    const [editedName, setEditedName] = useState(user.name);
-    const [editedMajor, setEditedMajor] = useState(user.major);
-    const [editedMinor, setEditedMinor] = useState(user.minor);
-    const [editedBio, setEditedBio] = useState(user.bio);
-    const [editedSchool, setEditedSchool] = useState(user.school)
+const [editStatus, setEditStatus] = useState(false);
+const [editedName, setEditedName] = useState(user.name);
+const [editedMajor, setEditedMajor] = useState(user.major);
+const [editedMinor, setEditedMinor] = useState(user.minor);
+const [editedBio, setEditedBio] = useState(user.bio);
+const [editedSchool, setEditedSchool] = useState(user.school)
 
-    const handleSave = () => {
-        // send this data to the backend
-        setEditStatus(false);
-    };
+const handleSave = () => {
+    // send this data to the backend
+    setEditStatus(false);
+    
+};
 
-    return (
-        <Container>
+return (
+<Container>
+
+    <Container
+    sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'left',
+        mt: '1',
+        mb: '1',
+        ml:'auto',
+        mr:'auto',
+        padding: '20px'
+        
+    }}>
 
 
+        <div>
+            <Avatar src={user.avatar} sx={{ 
+                width: 140, 
+                height: 140,
+                mt: '50px'
+            }}>
+            </Avatar>
+        </div>
 
-
-
-                    <Container
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        alignItems: 'left',
-                        
-                        
-                    }}>
-
+        <Container
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                ml: '35px'
+            }}>
+            <Typography variant="h2">{editedName}</Typography>
             
-                        <div>
-                            <Avatar src={user.avatar} sx={{ 
-                                width: 140, 
-                                height: 140,
-                            }}>
-                            </Avatar>
-                        </div>
 
-                        <Container
+
+            <Typography variant="subtitle2">@{user.username} <br /></Typography>
+            {editStatus ? (
+            <Container 
+            sx= {{
+                display:'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                mt: '30px',
+                gap: '30px',
+                border: '2px solid gray',
+                borderRadius: '8px',
+                padding: '16px'
+            }}>
+                <h1 style={{ fontSize: '2.5rem', fontFamily: 'Arial, sans-serif', fontWeight: 'bold' }}>Edit Profile</h1>
+                <label>
+                    Name:
+                    <Input 
+                        type="text" 
+                        value={editedName} 
+                        onChange={(e) => setEditedName(e.target.value)} 
+                    />
+                </label>
+                <label>
+                    Major:
+                    <Input 
+                        type="text" 
+                        value={editedMajor} 
+                        onChange={(e) => setEditedMajor(e.target.value)} 
+                    />
+                </label>
+                <label>
+                    Bio:
+                    <Input 
+                        type="text" 
+                        value={editedBio} 
+                        onChange={(e) => setEditedBio(e.target.value)} 
+                    />
+                </label>
+                <label>
+                    School:
+                    <Input 
+                        type="text" 
+                        value={editedSchool} 
+                        onChange={(e) => setEditedSchool(e.target.value)} 
+                    />
+                </label>
+                <label>
+                    Minor:
+                    <Input 
+                        type="text" 
+                        value={editedMinor} 
+                        onChange={(e) => setEditedMinor(e.target.value)} 
+                    />
+                </label>
+                <Button variant='outlined' onClick={handleSave}
+                sx={{
+                    color: 'blue',
+                    backgroundColor: 'white',
+                    borderColor: 'blue',
+                    '&:hover': {
+                        backgroundColor: 'blue',
+                        color: 'white',
+                        borderColor: 'blue'
+                    }
+                }}>Save</Button>
+            </Container>
+            ) : (
+            <>
+                <Typography variant='h6'>{user.bio}</Typography>
+                <Typography variant="subtitle2">
+                    <Box display='flex' justifyContent='flex-start' gap='20px'>
+                        <Box
                             sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-
-                            }}>
-                            <Typography variant="h2">{editedName}</Typography>
+                                border: '1px',
+                                padding: '10px',
+                                borderRadius: '20px',
+                                backgroundColor: '#D3D3D3',
+                                '&:hover': {
+                                    backgroundColor: '#bfc8d6'
+                                }
                             
-
-
-                            <Typography variant="subtitle2">@{user.username} <br /></Typography>
-                            {editStatus ? (
-                            <Container
-                            sx= {{
-                                display:'flex',
-                                flexDirection: 'column'
                             }}>
-                                <h2>Edit Profile</h2>
-                                <label>
-                                    Name:
-                                    <Input 
-                                        type="text" 
-                                        value={editedName} 
-                                        onChange={(e) => setEditedName(e.target.value)} 
-                                    />
-                                </label>
-                                <label>
-                                    Major:
-                                    <Input 
-                                        type="text" 
-                                        value={editedMajor} 
-                                        onChange={(e) => setEditedMajor(e.target.value)} 
-                                    />
-                                </label>
-                                <label>
-                                    Bio:
-                                    <Input 
-                                        type="text" 
-                                        value={editedBio} 
-                                        onChange={(e) => setEditedBio(e.target.value)} 
-                                    />
-                                </label>
-                                <label>
-                                    School:
-                                    <Input 
-                                        type="text" 
-                                        value={editedSchool} 
-                                        onChange={(e) => setEditedSchool(e.target.value)} 
-                                    />
-                                </label>
-                                <label>
-                                    Minor:
-                                    <Input 
-                                        type="text" 
-                                        value={editedMinor} 
-                                        onChange={(e) => setEditedMinor(e.target.value)} 
-                                    />
-                                </label>
-                                <Button onClick={handleSave}>Save</Button>
-                            </Container>
-                            ) : (
-                            <>
-                                <Typography variant='h6'>{user.bio}</Typography>
-                                <Typography variant="subtitle2">
-                                    <Box display='flex' justifyContent='flex-start' gap='5px'>
-                                        <Box
-                                            sx={{
-                                                border: '1px',
-                                                padding: '5px',
-                                                borderRadius: '20px',
-                                                backgroundColor: '#D3D3D3'
-                                            }}>
-                                            <DomainIcon />{user.school}
-                                        </Box>
-                                        <Box
-                                            sx={{
-                                                border: '1px',
-                                                padding: '5px',
-                                                borderRadius: '20px',
-                                                backgroundColor: '#D3D3D3'
-                                            }}>
-                                            <SchoolIcon />{user.year} - {user.gradStatus}
-                                        </Box>
-                                    </Box>
-                                    Major: {editedMajor} <br />
-                                    {user.minor && `Minor: ${user.minor}`} <br />
-                                    GPA; {user.gpa} <br />
-                                    Joined {user.joinDate}
-                                </Typography>
-                                </>
-                            )}
-                        </Container>
-            
-                        <Button onClick={() => setEditStatus(!editStatus)}>
-                            {editStatus ? "Cancel" : "Edit Profile"}
-                        </Button>
-                    </Container>
-
-
-
-
-                    <Box display="flex" justifyContent="space-around" mt={3} mb={3} p={2} bgcolor="background.paper" borderRadius={1}>
-                        <Box
-                            sx={{
-                                border: '1px solid #ccc',
-                                padding: '20px',
-                                borderRadius: '5px',
-                                marginBottom: '10px',
-                            }}
-                        >
-                            <Typography variant="h6">
-                                Notes Uploaded 
-                                <DescriptionIcon fontSize="small" />
-                                </Typography>
-                            <Typography variant="body1">{user.notesUploaded}</Typography>
+                            <DomainIcon />{user.school}
                         </Box>
                         <Box
                             sx={{
-                                border: '1px solid #ccc',
-                                padding: '20px',
-                                borderRadius: '5px',
-                                marginBottom: '10px',
-                            }}
-                        >
-                            <Typography variant="h6">
-                                Notes Downloaded <DownloadIcon fontSize="small" />
-                                </Typography>
-                            <Typography variant="body1">{user.notesDownloaded}</Typography>
+                                border: '1px',
+                                padding: '10px',
+                                borderRadius: '20px',
+                                backgroundColor: '#D3D3D3',
+                                '&:hover': {
+                                backgroundColor: '#bfc8d6'
+                                }
+                            }}>
+                            <SchoolIcon />{user.year} - {user.gradStatus}
                         </Box>
-                        <Box
-                            sx={{
-                                border: '1px solid #ccc',
-                                padding: '20px',
-                                borderRadius: '5px',
-                                marginBottom: '10px',
-                            }}
-                        >
-                            <Typography variant="h6">
-                                Courses Taken <MenuBookIcon fontSize="small" />
-                                </Typography>
-                            <Typography variant="body1">{user.coursesTaken.length}</Typography>
-                        </Box>
-                       
                     </Box>
-                    <Box className="course-list" mt={3} p={2} border={1} borderColor="grey.300" borderRadius={2} bgcolor="background.paper">
-                        <Typography variant="h5" mb={2}>Courses Taken</Typography>
-                        <Stack divider={<Divider />} spacing={1}>
-                            {user.coursesTaken.map((course, index) => (
-                                <Typography key={index} variant="body1" sx={{ padding: '8px 0' }}>
-                                    {course}
-                                </Typography>
-                            ))}
-                        </Stack>
-                    </Box>
-                    <NotesGallery notes={notes} />
-                
-            
+                    Major: {editedMajor} <br />
+                    {user.minor && `Minor: ${user.minor}`} <br />
+                    GPA: {user.gpa} <br />
+                    Joined {user.joinDate}
+                </Typography>
+                </>
+            )}
         </Container>
+
+        <Button variant='outlined' onClick={() => setEditStatus(!editStatus)} sx={{
+            width: '120px',
+            height: '80px',
+            color: 'blue',
+            backgroundColor: 'white',
+            borderColor: 'blue',
+            borderRadius: '25px',
+            '&:hover': {
+                backgroundColor: 'blue',
+                color: 'white',
+                borderColor: 'blue'
+            }
+        }}>
+            {editStatus ? "Cancel" : "Edit Profile"} <EditNoteIcon />
+        </Button>
+    </Container>
+
+
+
+
+    <Box display="flex" justifyContent="space-around" mt={3} mb={3} p={2} bgcolor="background.paper" borderRadius={1}>
+        <Box
+            sx={{
+                border: '1px solid #ccc',
+                padding: '20px',
+                borderRadius: '5px',
+                marginBottom: '10px',
+            }}
+        >
+            <Typography variant="h6">
+                Notes Uploaded 
+                <DescriptionIcon fontSize="small" />
+                </Typography>
+            <Typography variant="body1">{user.notesUploaded}</Typography>
+        </Box>
+        <Box
+            sx={{
+                border: '1px solid #ccc',
+                padding: '20px',
+                borderRadius: '5px',
+                marginBottom: '10px',
+            }}
+        >
+            <Typography variant="h6">
+                Notes Downloaded <DownloadIcon fontSize="small" />
+                </Typography>
+            <Typography variant="body1">{user.notesDownloaded}</Typography>
+        </Box>
+        <Box
+            sx={{
+                border: '1px solid #ccc',
+                padding: '20px',
+                borderRadius: '5px',
+                marginBottom: '10px',
+            }}
+        >
+            <Typography variant="h6">
+                Courses Taken <MenuBookIcon fontSize="small" />
+                </Typography>
+            <Typography variant="body1">{user.coursesTaken.length}</Typography>
+        </Box>
+        
+    </Box>
+    <Box className="course-list" mt={3} p={2} border={1} borderColor="grey.300" borderRadius={2} bgcolor="background.paper">
+        <Typography variant="h5" mb={2}>Courses Taken</Typography>
+        <Stack divider={<Divider />} spacing={1}>
+            {user.coursesTaken.map((course, index) => (
+                <Typography key={index} variant="body1" sx={{ padding: '8px 0' }}>
+                    {course}
+                </Typography>
+            ))}
+        </Stack>
+    </Box>
+    <NotesGallery notes={notes} />
+
+
+</Container>
     );
 }

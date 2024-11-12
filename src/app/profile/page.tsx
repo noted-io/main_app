@@ -2,6 +2,7 @@
 import React from 'react';
 import UserDescription from './UserDescription';
 import HeaderCard from '@/app/components/headercard/HeaderCard';
+import FooterCard from '@/app/components/headercard/FooterCard';
 
 const user = {
     name: "Alex Johnson",
@@ -35,6 +36,7 @@ export default function Page(): React.JSX.Element {
         <>
             <HeaderCard />
             <UserDescription user={user} /> {/* Pass notes as a prop */}
+            <FooterCard />
 
         </>
     );

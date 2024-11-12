@@ -40,7 +40,6 @@ export default function NotesGallery({ notes }: NotesGalleryProps): React.JSX.El
                         <Card onClick={() => handleOpen(note)} style={{cursor: 'pointer' }}>
                             <CardMedia
                                 component="img"
-                                alt={note.title}
                                 height="140"
                                 image={note.thumbnail}
                             />
