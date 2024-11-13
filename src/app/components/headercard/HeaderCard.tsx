@@ -2,7 +2,14 @@ import React from "react";
 import Link from "next/link";
 import{AppBar, Toolbar, IconButton, Button, Box, Typography} from'@mui/material'; 
 import { Book  as BookIcon} from "@mui/icons-material";
+import { useState } from "react";
 export default function HeaderCard(){
+
+const [loginStatus, setLoginStatus] = useState(false);
+
+
+
+
     return (
         <AppBar position="static" color="default" elevation={1}>
         <Toolbar>

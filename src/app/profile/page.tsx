@@ -35,7 +35,7 @@ export default function Page(): React.JSX.Element {
     return (
         <>
             <HeaderCard />
-            <UserDescription user={user} /> {/* Pass notes as a prop */}
+            <UserDescription user={user} /> 
             <FooterCard />
 
         </>

@@ -9,6 +9,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import DomainIcon from '@mui/icons-material/Domain';
 import { Directions } from '@mui/icons-material';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { keyframes } from '@emotion/react';
 
 interface Note {
     id: number;
@@ -62,6 +63,18 @@ const handleSave = () => {
     
 };
 
+const glowAnimation = keyframes`
+  0% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.6), 0 0 15px rgba(0, 123, 255, 0.4), 0 0 25px rgba(0, 123, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.7), 0 0 20px rgba(0, 123, 255, 0.5), 0 0 30px rgba(0, 123, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.6), 0 0 15px rgba(0, 123, 255, 0.4), 0 0 25px rgba(0, 123, 255, 0.2);
+  }
+`;
+
 return (
 <Container>
 
@@ -84,7 +97,8 @@ return (
             <Avatar src={user.avatar} sx={{ 
                 width: 140, 
                 height: 140,
-                mt: '50px'
+                mt: '50px',
+                animation: `${glowAnimation} 2s infinite ease-in-out`,     
             }}>
             </Avatar>
         </div>
