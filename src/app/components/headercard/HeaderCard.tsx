@@ -13,7 +13,7 @@ const [loginStatus, setLoginStatus] = useState(false);
     return (
         <AppBar position="static" color="default" elevation={1}>
         <Toolbar>
-          <Link href="#" passHref>
+          <Link href="/" passHref>
             <IconButton edge="start" color="inherit" aria-label="menu">
               <BookIcon color="primary" />
             </IconButton>
@@ -22,7 +22,7 @@ const [loginStatus, setLoginStatus] = useState(false);
             NoteShare
           </Typography>
           <Box display="flex" gap={2}>
-            <Link href="#" passHref>
+            <Link href="/" passHref>
               <Button color="inherit">Home</Button>
             </Link>
             <Link href="#" passHref>
@@ -31,12 +31,18 @@ const [loginStatus, setLoginStatus] = useState(false);
             <Link href="#" passHref>
               <Button color="inherit">Contribute</Button>
             </Link>
-            <Link href="#" passHref>
-              <Button color="inherit">About</Button>
+            <Link href="/profile" passHref>
+              <Button color="inherit">Profile</Button>
             </Link>
-            <Link href="#" passHref>
-              <Button color="inherit">Log In</Button>
-            </Link>
+            {loginStatus ?  (            
+              <Link href="#" passHref>
+                <Button color="inherit" onClick={() => setLoginStatus(false)}>Sign Out</Button>
+              </Link> ) : (
+              <Link href="#" passHref>
+                <Button color="inherit">Log In</Button>
+              </Link>     
+              )}
+
           </Box>
         </Toolbar>
       </AppBar>
