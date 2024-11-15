@@ -12,6 +12,15 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      keyframes: {
+        'soft-glow': {
+          '0%, 100%': { boxShadow: '0 0 5px 2px rgba(0, 119, 255, 0.5)' },
+          '50%': { boxShadow: '0 0 5px 2px rgba(0, 119, 255, 0.7)' },
+        },
+      },
+      animation: {
+        'soft-glow': 'soft-glow 3s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

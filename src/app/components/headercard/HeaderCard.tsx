@@ -25,13 +25,13 @@ const [loginStatus, setLoginStatus] = useState(false);
             <Link href="/" passHref>
               <Button color="inherit">Home</Button>
             </Link>
-            <Link href="#" passHref>
+            <Link href="/course-explore" passHref>
               <Button color="inherit">Explore</Button>
             </Link>
             <Link href="#" passHref>
               <Button color="inherit">Contribute</Button>
             </Link>
-            <Link href="/profile" passHref>
+            <Link href={loginStatus ? ('/profile') : ('/')} passHref>
               <Button color="inherit">Profile</Button>
             </Link>
             {loginStatus ?  (            
