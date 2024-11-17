@@ -1,5 +1,6 @@
 import { Typography, Container, Box } from "@mui/material";
 
+
 interface CourseProps {
     id: string;
     name: string;

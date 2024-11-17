@@ -1,9 +1,18 @@
-import { Avatar, Box, Grid, Typography, Button} from "@mui/material";
-import React from "react";
-import DownloadIcon from '@mui/icons-material/Download';
-import DescriptionIcon from '@mui/icons-material/Description';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import {
+  Avatar,
+  Box,
+  Grid,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
+import React, { useState } from "react";
+import DownloadIcon from "@mui/icons-material/Download";
+import DescriptionIcon from "@mui/icons-material/Description";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 interface Note {
   id: number;
@@ -23,6 +32,16 @@ interface CourseMaterialProps {
 }
 
 export default function CourseMaterial({ notes }: CourseMaterialProps) {
+  const [openNote, setOpenNote] = useState<Note | null>(null); 
+
+  const handleOpen = (note: Note) => {
+    setOpenNote(note);
+  };
+
+  const handleClose = () => {
+    setOpenNote(null);
+  };
+
   return (
     <div className="mt-10">
       {notes.map((note) => (
@@ -37,7 +56,7 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
           }}
         >
           <Grid container>
-            {/* Left Half - Text */}
+
             <Grid
               item
               xs={12}
@@ -45,9 +64,8 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "center",
                 backgroundColor: "#f5f5f5",
+                height: "750px",
                 padding: 3,
               }}
             >
@@ -73,34 +91,72 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
                 </Avatar>
                 <Typography variant="body1">{note.author}</Typography>
               </Box>
-            <Box sx={{
-                display: 'flex',
-                aligntitems:'left',
-                marginTop: '2',
-                gap: '15px',
-                mt: '5px'
-            }}>
-                <Typography><DescriptionIcon />{note.pages}  pages</Typography>
-                <Typography><DownloadIcon />{note.downloads}</Typography>
-                <Typography><ThumbUpIcon /> {note.likes}</Typography>
-            </Box>
-            <Box sx={{
-                display: 'flex',
-                aligntitems:'left',
-                marginTop: '2',
-                gap: '15px',
-                mt: '15px',
-            }}>
-            <Typography sx={{fontSize:'20px'}}><StarBorderIcon/> {note.rating}</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "left",
+                  marginTop: 2,
+                  gap: "15px",
+                  mt: "10px",
+                }}
+              >
+                <Typography>
+                  <DescriptionIcon />
+                  {note.pages} pages
+                </Typography>
+                <Typography>
+                  <DownloadIcon />
+                  {note.downloads}
+                </Typography>
+                <Typography>
+                  <ThumbUpIcon /> {note.likes}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "left",
+                  marginTop: 2,
+                  gap: "15px",
+                  mt: "15px",
+                }}
+              >
+                <Typography sx={{ fontSize: "20px" }}>
+                  <StarBorderIcon /> {note.rating}
+                </Typography>
 
-                <Button variant='outlined' sx={{padding:'10px'}}>View Note</Button>
-                <Button variant='outlined' sx={{padding:'10px'}}>Download Note</Button>
-
-            </Box>
-
+                <Box sx={{ display: "flex", gap: "10px", ml: "auto" }}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      padding: "10px",
+                      backgroundColor: "white",
+                      borderColor: "gray",
+                      color: "gray",
+                      borderRadius: "10px",
+                      "&:hover": { backgroundColor: "#d6dad8" },
+                    }}
+                    onClick={() => handleOpen(note)} // Open the modal
+                  >
+                    View Note
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      padding: "10px",
+                      backgroundColor: "black",
+                      borderColor: "none",
+                      color: "white",
+                      borderRadius: "10px",
+                      "&:hover": { backgroundColor: "#393A39" },
+                    }}
+                  >
+                    Download Note
+                  </Button>
+                </Box>
+              </Box>
             </Grid>
 
-            {/* Right Half - Image */}
             <Grid
               item
               xs={12}
@@ -125,6 +181,43 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
           </Grid>
         </Box>
       ))}
+
+      {openNote && (
+        <Dialog open={!!openNote} onClose={handleClose}>
+          <DialogTitle>{openNote.title}</DialogTitle>
+          <DialogContent>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Avatar
+                src={openNote.authorAvatar}
+                alt={openNote.author}
+                sx={{ width: 100, height: 100, marginBottom: 2 }}
+              >
+                {openNote.authorAvatar ? "" : openNote.author.charAt(0)}
+              </Avatar>
+              <Typography variant="h6" sx={{ marginBottom: 2 }}>
+                {openNote.author}
+              </Typography>
+              <Box
+                component="img"
+                src={openNote.imageUrl}
+                alt={`${openNote.title} image`}
+                sx={{
+                  width: "100%",
+                  maxWidth: "500px",
+                  borderRadius: "10px",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
