@@ -1,10 +1,27 @@
-import { getCollection } from "../../../lib/mongodb/datadb";
-import { NextApiRequest, NextApiResponse } from "next";
+import connectDB from "@/lib/mongodb/mongodb";
+import User from "@/models/user";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const usersCollection = await getCollection("users");
+export async function GET(){
+    await connectDB();
 
-  const users = await usersCollection.find({}).toArray();
+    try {
+        const users = await User.find({});
+        return NextResponse.json(users);
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({error: "Error occurred"});
+    }
+}
 
-  res.json({status: 200, data: users});
+export async function POST(req: Request){
+    await connectDB();
+
+    try {
+        const user = await User.create(req.body);
+        return NextResponse.json(user);
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({error: "Error occurred"});
+    }
 }
