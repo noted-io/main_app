@@ -1,12 +1,16 @@
 import { TextField, Box, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
-import { useState } from "react";
 import CourseMaterial from "./course-material";
 
-export default function CourseSearch() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterType, setFilterType] = useState("Most Popular");
-  const [noteType, setNoteType] = useState("All Types");
-
+interface CourseSearchProps{
+  searchTerm: string;
+  filterType: string;
+  noteType: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setFilterType: React.Dispatch<React.SetStateAction<string>>;
+  setNoteType: React.Dispatch<React.SetStateAction<string>>;
+}
+export default function CourseSearch({searchTerm, filterType, noteType, setSearchTerm, setFilterType, setNoteType}: CourseSearchProps ) {
+ 
   const changeFilter = (event: any) => {
     setFilterType(event.target.value);
   };

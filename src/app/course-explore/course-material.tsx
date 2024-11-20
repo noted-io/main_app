@@ -64,7 +64,7 @@ export default function CourseMaterial({
       if (filterType === "Most Recent") return b.id - a.id;
       return 0;
     });
-
+ 
   return (
     <div className="mt-10">
       {filteredNotes.map((note) => (

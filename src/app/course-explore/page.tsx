@@ -1,9 +1,8 @@
 'use client';
-
+import { useState } from "react";
 import CourseMaterial from "./course-material";
 import CourseSearch from "./course-search";
 import CourseDescription from "./course-description"
-import HeaderCard from "@/app/components/headercard/HeaderCard"
 import { Container } from '@mui/material';
 
 
@@ -91,14 +90,15 @@ const notes = [
 ]
 
 export default function Page() {
-
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filterType, setFilterType] = useState("Most Popular");
+    const [noteType, setNoteType] = useState("All Types");
     return (
         <>
-            <HeaderCard />
             <Container sx = {{mt:5}}>
                 <CourseDescription course={course} />
-                <CourseSearch />
-                <CourseMaterial notes={notes}/>
+                <CourseSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterType={filterType} setFilterType={setFilterType} noteType ={noteType} setNoteType = {setNoteType}/>
+                <CourseMaterial notes={notes} searchTerm={searchTerm} filterType={filterType} noteType={noteType}/>
             </Container>
         </>
     )
