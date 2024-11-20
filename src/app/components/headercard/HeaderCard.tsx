@@ -1,45 +1,51 @@
 'use client';
 import React from "react";
 import Link from "next/link";
-import { AppBar, Toolbar, IconButton, Button, Box, Typography } from '@mui/material';
-import { Book as BookIcon } from "@mui/icons-material";
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import{AppBar, Toolbar, IconButton, Button, Box, Typography} from'@mui/material'; 
+import { Book  as BookIcon} from "@mui/icons-material";
+import { useState } from "react";
+export default function HeaderCard(){
 
-export default function HeaderCard() {
-  return (
-    <AppBar position="static" color="default" elevation={1}>
-      <Toolbar>
-        <Link href="#" passHref>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <BookIcon color="primary" />
-          </IconButton>
-        </Link>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Noted
-        </Typography>
-        <Box display="flex" gap={2}>
-          <Link href="#" passHref>
-            <Button color="inherit">Home</Button>
+const [loginStatus, setLoginStatus] = useState(false);
+
+
+
+
+    return (
+        <AppBar position="static" color="default" elevation={1}>
+        <Toolbar>
+          <Link href="/" passHref>
+            <IconButton edge="start" color="inherit" aria-label="menu">
+              <BookIcon color="primary" />
+            </IconButton>
           </Link>
-          <Link href="#" passHref>
-            <Button color="inherit">Explore</Button>
-          </Link>
-          <Link href="#" passHref>
-            <Button color="inherit">Contribute</Button>
-          </Link>
-          <Link href="#" passHref>
-            <Button color="inherit">About</Button>
-          </Link>
-          <SignedOut>
-            <SignInButton mode='modal'>
-              <Button color="inherit">Log In</Button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            NoteShare
+          </Typography>
+          <Box display="flex" gap={2}>
+            <Link href="/" passHref>
+              <Button color="inherit">Home</Button>
+            </Link>
+            <Link href="/course-explore" passHref>
+              <Button color="inherit">Explore</Button>
+            </Link>
+            <Link href="#" passHref>
+              <Button color="inherit">Contribute</Button>
+            </Link>
+            <Link href={loginStatus ? ('/profile') : ('/')} passHref>
+              <Button color="inherit">Profile</Button>
+            </Link>
+            {loginStatus ?  (            
+              <Link href="#" passHref>
+                <Button color="inherit" onClick={() => setLoginStatus(false)}>Sign Out</Button>
+              </Link> ) : (
+              <Link href="#" passHref>
+                <Button color="inherit">Log In</Button>
+              </Link>     
+              )}
+
+          </Box>
+        </Toolbar>
+      </AppBar>
+    )
 }
