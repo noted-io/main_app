@@ -134,9 +134,9 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
                       borderColor: "gray",
                       color: "gray",
                       borderRadius: "10px",
-                      "&:hover": { backgroundColor: "#d6dad8" },
+                      "&:hover": { backgroundColor: "#d6dad8", transform:'scale(1.1)' },
                     }}
-                    onClick={() => handleOpen(note)} // Open the modal
+                    onClick={() => handleOpen(note)} 
                   >
                     View Note
                   </Button>
@@ -148,7 +148,7 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
                       borderColor: "none",
                       color: "white",
                       borderRadius: "10px",
-                      "&:hover": { backgroundColor: "#393A39" },
+                      "&:hover": { backgroundColor: "#393A39", transform:'scale(1.1)' },
                     }}
                   >
                     Download Note

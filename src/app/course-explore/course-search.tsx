@@ -1,18 +1,23 @@
 import { TextField, Box, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import { useState } from "react";
+import CourseMaterial from "./course-material";
 
 export default function CourseSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("Most Popular");
   const [noteType, setNoteType] = useState("All Types");
 
-  const changeFilter = (event) => {
+  const changeFilter = (event: any) => {
     setFilterType(event.target.value);
   };
 
-  const changeNoteType = (event) => {
+  const changeNoteType = (event: any) => {
     setNoteType(event.target.value);
   };
+  
+  const changeSearchTerm = (event: any) => {
+    setSearchTerm(event.target.value);
+  }
 
   return (
     <div className="flex flex-row gap-4 mt-5">
@@ -22,7 +27,7 @@ export default function CourseSearch() {
           label="Search Notes"
           placeholder="Search notes..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={changeSearchTerm}
           fullWidth
           sx={{
             borderRadius: "8px",
@@ -70,6 +75,10 @@ export default function CourseSearch() {
           <MenuItem value="Review">Review</MenuItem>
         </Select>
       </FormControl>
+
+
+
+
     </div>
   );
 }
