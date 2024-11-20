@@ -29,22 +29,45 @@ interface Note {
 
 interface CourseMaterialProps {
   notes: Note[];
+  searchTerm: string;
+  filterType: string;
+  noteType: string;
 }
 
-export default function CourseMaterial({ notes }: CourseMaterialProps) {
-  const [openNote, setOpenNote] = useState<Note | null>(null); 
+export default function CourseMaterial({
+  notes,
+  searchTerm,
+  filterType,
+  noteType,
+}: CourseMaterialProps) {
+  const [openNote, setOpenNote] = useState<Note | null>(null);
 
+  // Open Dialog for Note
   const handleOpen = (note: Note) => {
     setOpenNote(note);
   };
 
+  // Close Dialog
   const handleClose = () => {
     setOpenNote(null);
   };
 
+  // Filter and Sort Notes
+  const filteredNotes = notes
+    .filter((note) =>
+      note.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((note) => noteType === "All Types" || note.type === noteType)
+    .sort((a, b) => {
+      if (filterType === "Most Popular") return b.downloads - a.downloads;
+      if (filterType === "Highest Rated") return b.rating - a.rating;
+      if (filterType === "Most Recent") return b.id - a.id;
+      return 0;
+    });
+
   return (
     <div className="mt-10">
-      {notes.map((note) => (
+      {filteredNotes.map((note) => (
         <Box
           key={note.id}
           sx={{
@@ -56,7 +79,7 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
           }}
         >
           <Grid container>
-
+            {/* Note Details */}
             <Grid
               item
               xs={12}
@@ -134,9 +157,12 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
                       borderColor: "gray",
                       color: "gray",
                       borderRadius: "10px",
-                      "&:hover": { backgroundColor: "#d6dad8", transform:'scale(1.1)' },
+                      "&:hover": {
+                        backgroundColor: "#d6dad8",
+                        transform: "scale(1.1)",
+                      },
                     }}
-                    onClick={() => handleOpen(note)} 
+                    onClick={() => handleOpen(note)}
                   >
                     View Note
                   </Button>
@@ -148,7 +174,10 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
                       borderColor: "none",
                       color: "white",
                       borderRadius: "10px",
-                      "&:hover": { backgroundColor: "#393A39", transform:'scale(1.1)' },
+                      "&:hover": {
+                        backgroundColor: "#393A39",
+                        transform: "scale(1.1)",
+                      },
                     }}
                   >
                     Download Note
@@ -157,6 +186,7 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
               </Box>
             </Grid>
 
+            {/* Note Image */}
             <Grid
               item
               xs={12}
@@ -182,6 +212,7 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
         </Box>
       ))}
 
+      {/* Dialog to View Note */}
       {openNote && (
         <Dialog open={!!openNote} onClose={handleClose}>
           <DialogTitle>{openNote.title}</DialogTitle>
@@ -221,3 +252,4 @@ export default function CourseMaterial({ notes }: CourseMaterialProps) {
     </div>
   );
 }
+
